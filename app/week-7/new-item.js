@@ -79,7 +79,7 @@ export default function NewItem({ onAddItem }) {
         </div>
       </div>
 
-      <button type="submit" className="w-1/5 py-2 px-4 bg-gray-500 text-black font-semibold rounded-lg hover:bg-gray-600">
+      <button type="submit" className="w-72 py-2 px-4 bg-gray-500 text-black font-semibold rounded-lg hover:bg-gray-600">
         Add an item
       </button>
     </form>
