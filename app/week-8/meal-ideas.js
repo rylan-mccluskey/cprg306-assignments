@@ -2,15 +2,16 @@
 
 import { useEffect } from "react";
 
-export default function MealIdeas({ingrediant}) 
+export default function MealIdeas({ingredient}) 
 {
-    const [meals, setMeals] = useState([]);\
+    const [meals, setMeals] = useState([]);
     useEffect(() => {
-        loadMealIdeas(ingrediant);
-    }, [ingrediant]);
+        loadMealIdeas(ingredient);
+    }, [ingredient]);
 
-    function loadMealIdeas(ingrediant) {
-        const onlineMeals = await fetchMealIdeas(ingrediant);
+    async function loadMealIdeas(ingredient) {
+        const onlineMeals = await fetchMealIdeas(ingredient);
+        setMeals(onlineMeals);
     }
 
     return <div>
@@ -18,10 +19,10 @@ export default function MealIdeas({ingrediant})
     </div>
 }
 
-async function fetchMealIdeas(ingrediant) {
-    try{
-        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediant}`);
+async function fetchMealIdeas(ingredient) {
+    {
+        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
         const data = await response.json();
-        console.log(data);
+        return data.meals || [];
     }
 }

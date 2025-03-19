@@ -1,9 +1,8 @@
-export default function Item({ name, category, quantity }) {
+export function Item({ name, quantity, category }) {
     return (
-        <div className="flex flex-col gap-2 items-center">
-            <h2>{name}</h2>
-            <h3>{category}</h3>
-            <p>{quantity}</p>
-        </div>
+      <li className="mb-4 indent-7">
+        <p className="font-bold text-xl">{name}</p>
+        <p>Buy {quantity} in {category}</p>
+      </li>
     );
-}
+  }
