@@ -1,7 +1,7 @@
 export function Item({ name, quantity, category, onSelect }) {
   
   const clickHandler = () => {
-    if (onSelect && typeof onSelect === "function")
+    if (typeof onSelect === "function")
     onSelect(name);
   }
   

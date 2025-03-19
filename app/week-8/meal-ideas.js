@@ -10,7 +10,7 @@ export default function MealIdea({ ingredient }) {
 
     async function loadMealIdeas() {
         const onlineMeals = await fetchMealIdeas(ingredient);
-        setMeals(onlineMeals || []); // Ensure we always set an array
+        setMeals(onlineMeals || []);
     }
 
     return (
