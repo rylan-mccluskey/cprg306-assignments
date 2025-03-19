@@ -1,8 +1,8 @@
-export function Item({ name, quantity, category }) {
+export function Item({ name, quantity, category, onItemSelect }) {
     return (
-      <li className="mb-4 indent-7">
+      <div className="mb-4 indent-7 cursor-pointer" onClick={() => onItemSelect && onItemSelect(name)}>
         <p className="font-bold text-xl">{name}</p>
         <p>Buy {quantity} in {category}</p>
-      </li>
+      </div>
     );
   }

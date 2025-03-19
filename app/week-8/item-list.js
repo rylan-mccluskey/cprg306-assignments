@@ -1,20 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Item } from "./item";
 
 
-export default function ItemList({ items }) {
+export default function ItemList({ items, onItemSelect }) {
   const [sortBy, setSortBy] = useState("name");
+  const [sortedItems, setSortedItems] = useState(items);
 
-  const sortedItems = [...items].sort((a, b) => {
-    if (sortBy === "name") {
-      return a.name.localeCompare(b.name);
-    } else if (sortBy === "category") {
-      return a.category.localeCompare(b.category);
-    }
-    return 0;
-  });
+  useEffect(() => {
+    setSortedItems([...items].sort((a, b) => {
+      if (sortBy === "name") {
+        return a.name.localeCompare(b.name);
+      } else if (sortBy === "category") {
+        return a.category.localeCompare(b.category);
+      }
+      return 0;
+    }));
+  }, [items, sortBy]);
 
   return (
     <div>
@@ -36,9 +39,9 @@ export default function ItemList({ items }) {
       
       <ul>
         {sortedItems.map((item) => (
-          <li key={item.id} className="p-1 mb-3 bg-gray-900 max-w-sm">
-            <Item name={item.name} quantity={item.quantity} category={item.category} />
-          </li>
+          <div key={item.id} className="p-1 mb-3 bg-gray-900 max-w-sm">
+            <Item name={item.name} quantity={item.quantity} category={item.category} onClick={() => onItemSelect(item.name)}/>
+          </div>
         ))}
       </ul>
     </div>
