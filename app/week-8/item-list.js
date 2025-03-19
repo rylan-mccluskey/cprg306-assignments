@@ -6,10 +6,9 @@ import { Item } from "./item";
 
 export default function ItemList({ items, onItemSelect }) {
   const [sortBy, setSortBy] = useState("name");
-  const [sortedItems, setSortedItems] = useState(items);
 
-  useEffect(() => {
-    setSortedItems([...items].sort((a, b) => {
+
+    const sortedItems = ([...items].sort((a, b) => {
       if (sortBy === "name") {
         return a.name.localeCompare(b.name);
       } else if (sortBy === "category") {
@@ -17,10 +16,9 @@ export default function ItemList({ items, onItemSelect }) {
       }
       return 0;
     }));
-  }, [items, sortBy]);
 
   return (
-    <div>
+    <div className="mb-4">
       <div className="flex gap-2 mb-4">
         <p>Sort by: </p>
         <button
@@ -31,7 +29,7 @@ export default function ItemList({ items, onItemSelect }) {
         </button>
         <button
           onClick={() => setSortBy("category")}
-          className={`px-8 ${sortBy === "category" ? "bg-red-700 text-white" : "bg-red-500"}`}
+          className={`px-8 py-1 ${sortBy === "category" ? "bg-red-700 text-white" : "bg-red-500"}`}
         >
           Category
         </button>
@@ -39,9 +37,9 @@ export default function ItemList({ items, onItemSelect }) {
       
       <ul>
         {sortedItems.map((item) => (
-          <div key={item.id} className="p-1 mb-3 bg-gray-900 max-w-sm">
-            <Item name={item.name} quantity={item.quantity} category={item.category} onClick={() => onItemSelect(item.name)}/>
-          </div>
+          <li key={item.id} className="p-1 mb-3 bg-gray-900 max-w-sm">
+            <Item name={item.name} quantity={item.quantity} category={item.category} onSelect={onItemSelect}/>
+          </li>
         ))}
       </ul>
     </div>
