@@ -18,7 +18,7 @@ export default function MealIdea({ ingredient }) {
             {meals.map((meal, i) => (
                 <div key={i}>
                     <h3>{meal.strMeal}</h3>
-                    <img src={meal.strMealThumb} alt={meal.strMeal}/>
+                    <img src={meal.strMealThumb} alt={meal.strMeal} className="object-scale-down"/>
                 </div>
             ))}
         </div>

@@ -3,13 +3,15 @@
 import MealIdeas from "./meal-ideas";
 import ItemList from "./item-list";
 import NewItem from "./new-item";
-import { getItems, addItem } from "../_services/shopping-list-service";
 
+import { getItems, addItem } from "../_services/shopping-list-service";
+import { useUserAuth } from "../_utils/auth-context";
 import { useState, useEffect } from "react";
 
 export default function Page() {
+  const { user } = useUserAuth();
   const [selectedItemName, setSelectedItemName] = useState("");
-  const [items, setItems] = useState(itemsData);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
     if (user) {
@@ -22,12 +24,13 @@ export default function Page() {
   }, [user]);
 
   const handleItemSelect = (name) => {
-    const cleanName = name.trim();
-    setSelectedItemName(cleanName);
-  }
+    setSelectedItemName(name.trim());
+  };
 
-  const handleAddItem = (newItem) => {
-    setItems([...items, newItem]);
+  const handleAddItem = async () => {
+    if (newItemName.trim() === "") return;
+    const itemId = await addItem(user.uid, newItem);
+    setItemName([...items, { id: itemId, ...newItem }]);
   };
 
   return (
@@ -46,10 +49,12 @@ export default function Page() {
 
       </div>
 
-      <div className="meal-ideas w-full p-4 shadow-lg">
+      <div className="meal-ideas w-full p-4 object-scale-down shadow-lg">
         <h2 className="font-bold text-2xl mb-4">Meal Ideas</h2>
         {selectedItemName ? (
+          <div className="w-full h-full">
           <MealIdeas ingredient={selectedItemName} />
+          </div>
         ) : (
           <p className="">Select an item to see meal ideas</p>
         )}
