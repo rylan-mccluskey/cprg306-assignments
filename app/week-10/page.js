@@ -19,7 +19,7 @@ export default function Page() {
             <header>
                 <nav>
                     <Link href="/">Home </Link>
-                    <Link href="/week-9/shopping-list">Shopping List</Link>
+                    <Link href="/week-10/shopping-list">Shopping List</Link>
                 </nav>
                 <div>
                     {user ? (

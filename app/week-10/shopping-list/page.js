@@ -3,13 +3,23 @@
 import MealIdeas from "./meal-ideas";
 import ItemList from "./item-list";
 import NewItem from "./new-item";
-import itemsData from "./items.json";
+import { getItems, addItem } from "../_services/shopping-list-service";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Page() {
   const [selectedItemName, setSelectedItemName] = useState("");
   const [items, setItems] = useState(itemsData);
+
+  useEffect(() => {
+    if (user) {
+      const loadItems = async () => {
+        const fetchedItems = await getItems(user.uid);
+        setItems(fetchedItems);
+      };
+      loadItems();
+    }
+  }, [user]);
 
   const handleItemSelect = (name) => {
     const cleanName = name.trim();
